@@ -68,18 +68,16 @@ public class FizzBuzz {
 
     private void afterThreadWork() {
         if (processedCount.addAndGet(1) == 3) {
-            synchronized (this) {
-                processedCount.set(0);
+            processedCount.set(0);
 
-                writeNumberIfNeeded();
+            writeNumberIfNeeded();
 
-                if (++currentNumber > number) {
-                    running = false;
-                }
+            if (++currentNumber > number) {
+                running = false;
+            }
 
-                synchronized (pauseLock) {
-                    pauseLock.notifyAll();
-                }
+            synchronized (pauseLock) {
+                pauseLock.notifyAll();
             }
         } else {
             synchronized (pauseLock) {
